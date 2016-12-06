@@ -174,4 +174,13 @@ class Abac {
 			}
 		}
 	}
+	
+	/**
+	 * Return all rules name of loaded rules
+	 *
+	 * @return string[]
+	 */
+	public function getRuleNamesLoaded() {
+		return $this->policyRuleManager->getRuleNames();
+	}
 }

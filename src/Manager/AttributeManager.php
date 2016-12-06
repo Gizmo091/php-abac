@@ -97,6 +97,7 @@ class AttributeManager
     {
         switch($attribute->getType()) {
             case 'user':
+//            	var_dump($attribute,$user,$getter_params);
                 return $this->retrieveClassicAttribute($attribute, $user, $getter_params);
             case 'resource':
                 return $this->retrieveClassicAttribute($attribute, $object);
@@ -117,11 +118,20 @@ class AttributeManager
         foreach($propertyPath as $property) {
 	
         	
-			$getter = $this->getter_prefix.call_user_func($this->getter_name_transformation_function,$property);
+			$getter = $this->getter_prefix.($this->getter_name_transformation_function?call_user_func($this->getter_name_transformation_function,$property):$property);
             // Use is_callable, instead of method_exists, to deal with __call magic method
+//			var_dump($attribute);
+//			var_dump($attribute->getProperty());
+//			var_dump($propertyValue);
+			
+			if ( null === $propertyValue ) {
+				return null;
+			}
+			
             if(!is_callable([$propertyValue,$getter])) {
-                throw new \InvalidArgumentException('There is no getter for the "'.$attribute->getProperty().'" attribute for object "'.get_class($propertyValue).'" with getter "'.$getter.'"');
+                throw new \InvalidArgumentException('There is no getter for the "'.$getter.'" attribute for object "'.get_class($propertyValue).'" with getter "'.$getter.'"');
             }
+            
 			if ( ( $propertyValue = call_user_func_array( [
 					$propertyValue,
 					$getter,

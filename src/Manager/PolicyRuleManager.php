@@ -102,4 +102,13 @@ class PolicyRuleManager
                 break;
         }
     }
+	
+	/**
+	 * This method return all Rules Name loaded
+	 *
+	 * @return string[]
+	 */
+    public function getRuleNames() {
+    	return array_keys($this->rules);
+	}
 }
