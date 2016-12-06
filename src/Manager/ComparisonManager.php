@@ -2,6 +2,7 @@
 
 namespace PhpAbac\Manager;
 
+use PhpAbac\Comparison\IntegerComparison;
 use PhpAbac\Model\PolicyRuleAttribute;
 
 use PhpAbac\Comparison\ArrayComparison;
@@ -24,6 +25,8 @@ class ComparisonManager {
         'object' => ObjectComparison::class,
         'user' => UserComparison::class,
         'string' => StringComparison::class,
+		'integer' => IntegerComparison::class,
+		'float' => FloatComparison::class,
     ];
     /** @var array **/
     protected $rejectedAttributes = [];
