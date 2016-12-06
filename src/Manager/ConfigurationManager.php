@@ -4,6 +4,7 @@ namespace PhpAbac\Manager;
 
 use PhpAbac\Loader\AbacLoader;
 use PhpAbac\Loader\JsonAbacLoader;
+use PhpAbac\Loader\PHPAbacLoader;
 use PhpAbac\Loader\YamlAbacLoader;
 
 use Symfony\Component\Config\FileLocatorInterface;
@@ -30,6 +31,7 @@ class ConfigurationManager {
 	public function __construct( FileLocatorInterface $locator, $format = [
 		'yaml',
 		'json',
+		'php',
 	] ) {
 		$this->locator             = $locator;
 		$this->attributes          = [];
@@ -40,6 +42,9 @@ class ConfigurationManager {
 		}
 		if ( in_array( 'json', $format ) ) {
 			$this->loaders[ 'json' ] = new JsonAbacLoader( $locator, $this );
+		}
+		if ( in_array( 'php', $format ) ) {
+			$this->loaders[ 'php' ] = new PHPAbacLoader( $locator, $this );
 		}
 		
 	}
@@ -56,7 +61,12 @@ class ConfigurationManager {
 	 */
 	public function parseConfigurationFile( $configurationFiles ) {
 		foreach ( $configurationFiles as $configurationFile ) {
+//			var_dump($configurationFile);
+//			var_dump(pathinfo( $configurationFile, PATHINFO_EXTENSION ));
 			$config = $this->getLoader( $configurationFile )->import( $configurationFile, pathinfo( $configurationFile, PATHINFO_EXTENSION ) );
+//			var_dump($config );
+//			if (pathinfo( $configurationFile, PATHINFO_EXTENSION ) === 'php')
+//				die();
 			
 			if (in_array($config['path'],$this->config_files_loaded)) {
 				continue;
@@ -72,6 +82,7 @@ class ConfigurationManager {
 			if ( isset( $config[ 'attributes' ] ) ) {
 				$this->attributes = array_merge( $this->attributes, $config[ 'attributes' ] );
 			}
+			
 			if ( isset( $config[ 'rules' ] ) ) {
 				$this->rules = array_merge( $this->rules, $config[ 'rules' ] );
 			}

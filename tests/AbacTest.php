@@ -22,6 +22,7 @@ class AbacTest extends \PHPUnit_Framework_TestCase
         $this->abac_a = [
             new Abac([__DIR__ . '/fixtures/policy_rules.yml']),
             new Abac([__DIR__ . '/fixtures/policy_rules.json']),
+            new Abac([__DIR__ . '/fixtures/policy_rules.php']),
         ];
         $this->abac_array_a = [
             new Abac([__DIR__ . '/fixtures/policy_rules_with_array.yml']),
