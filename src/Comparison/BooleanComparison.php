@@ -4,6 +4,18 @@ namespace PhpAbac\Comparison;
 
 class BooleanComparison extends AbstractComparison
 {
+	/**
+	 * @param bool $excepted
+	 * @param bool $value
+	 *
+	 * @return bool
+	 */
+	public function isEqual($excepted, $value)
+	{
+		return $excepted === $value;
+	}
+	
+	
     /**
      * @param bool $expected
      * @param bool $value
