@@ -21,4 +21,15 @@ class ObjectComparison extends AbstractComparison
             $extraData['resource']
         ) === $value;
     }
+	
+	/**
+	 * @param       $attributeId
+	 * @param       $value
+	 * @param array $extraData
+	 *
+	 * @return bool
+	 */
+    public function isNotFieldEqual($attributeId, $value, $extraData = []) {
+    	return !$this->isFieldEqual($attributeId, $value, $extraData);
+	}
 }
