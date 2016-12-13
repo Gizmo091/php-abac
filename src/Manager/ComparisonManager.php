@@ -2,6 +2,7 @@
 
 namespace PhpAbac\Manager;
 
+use PhpAbac\Comparison\FloatComparison;
 use PhpAbac\Comparison\IntegerComparison;
 use PhpAbac\Model\PolicyRuleAttribute;
 
@@ -64,7 +65,7 @@ class ComparisonManager {
         ;
         // Checking that the configured comparison type is available
         if(!isset($this->comparisons[$pra->getComparisonType()])) {
-            throw new \InvalidArgumentException('The requested comparison class does not exist');
+            throw new \InvalidArgumentException('The requested comparison class ['.$pra->getComparisonType().'] does not exist');
         }
         // The comparison class will perform the attribute check with the configured method
         // For more complex comparisons, the comparison manager is injected

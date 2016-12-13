@@ -14,6 +14,17 @@ class NumericComparison extends AbstractComparison
     {
         return (int) $expected === (int) $value;
     }
+	
+	/**
+	 * @param $excepted
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+    public function isNotEqual($excepted,$value)
+	{
+		return !$this->isEqual($excepted,$value);
+	}
 
     /**
      * If strict is set to false, equal values will return true.
